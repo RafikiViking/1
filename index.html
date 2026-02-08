@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Feliz Primer Mes ❤️</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #ff758c, #ff7eb3);
+  min-height: 100vh;
+  overflow-x: hidden;
+  color: #fff;
+}
+
+h1 {
+  text-align: center;
+  margin-top: 25px;
+  font-size: 2.3rem;
+}
+
+p.sub {
+  text-align: center;
+  margin: 10px 20px 30px;
+  font-size: 1.1rem;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 15px;
+  width: 90%;
+  max-width: 900px;
+  margin: auto;
+  padding-bottom: 80px;
+}
+
+.card {
+  background: rgba(255,255,255,0.2);
+  border-radius: 16px;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.modal.active {
+  display: flex;
+}
+
+.modal-content {
+  background: #fff;
+  color: #333;
+  border-radius: 20px;
+  padding: 30px;
+  max-width: 90%;
+  width: 360px;
+  text-align: center;
+  animation: zoom 0.3s ease;
+  line-height: 1.5;
+}
+
+@keyframes zoom {
+  from { transform: scale(0.7); }
+  to { transform: scale(1); }
+}
+
+.modal-content button {
+  margin-top: 20px;
+  padding: 10px 18px;
+  border: none;
+  background: #ff5c8a;
+  color: #fff;
+  border-radius: 10px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.heart {
+  position: fixed;
+  bottom: -20px;
+  font-size: 20px;
+  animation: float 6s linear infinite;
+  opacity: 0.7;
+}
+
+@keyframes float {
+  from { transform: translateY(0); opacity: 1; }
+  to { transform: translateY(-110vh); opacity: 0; }
+}
+
+.music-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: rgba(255,255,255,0.25);
+  border: none;
+  padding: 14px;
+  border-radius: 50%;
+  font-size: 20px;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  color: #fff;
+  z-index: 20;
+}
+</style>
+</head>
+
+<body>
+
+<h1>❤️ Feliz Primer Mes ❤️</h1>
+<p class="sub">
+  Te amo tanto mi amor, que quiero mostarte mi amor y 
+  mis sentimientos de todas las formas posibles mi vida. 💕
+</p>
+
+<div class="container" id="cards"></div>
+
+<div class="modal" id="modal">
+  <div class="modal-content">
+    <div id="modalText"></div>
+    <button onclick="closeModal()">Cerrar 💖</button>
+  </div>
+</div>
+
+<button class="music-btn" onclick="toggleMusic()">🎵</button>
+<audio id="music" loop>
+  <source src="musica.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+const mensajes = [
+  "Desde que llegaste a mi vida, todo se siente distinto. No perfecto, pero sí más bonito. Gracias por ser parte de mis días y por hacer este primer mes tan especial.",
+
+  "Un mes puede parecer poco, pero contigo ha sido suficiente para darme cuenta de que quiero seguir sumando momentos, risas y recuerdos a tu lado.",
+
+  "Me gusta cómo me haces sentir sin siquiera intentarlo. Tu forma de ser, de hablar, de sonreír… todo eso se me quedó en el corazón.",
+
+  "Gracias por cada mensaje, cada detalle y cada momento compartido. No sabes cuánto significan para mí, incluso los más pequeños.",
+
+  "No prometo perfección, pero sí ganas, cariño y el deseo sincero de seguir construyendo algo bonito contigo.",
+
+  "Contigo aprendí que lo simple también puede ser especial, y que una persona puede cambiarte el día solo con existir.",
+
+  "Este primer mes es solo el comienzo de algo que quiero cuidar, valorar y disfrutar contigo, paso a paso.",
+
+  "Me encanta coincidir contigo en este momento de la vida. No sé qué venga después, pero me gusta que sea contigo.",
+
+  "Si tuviera que elegir un lugar seguro, sería ese donde estás tú, donde me siento tranquilo y feliz.",
+
+  "Gracias por ser tú, por quedarte, por compartir este primer capítulo conmigo. Ojalá vengan muchos más.",
+
+  "No sabía que necesitaba a alguien así en mi vida, hasta que llegaste y todo empezó a tener más sentido.",
+
+  "Feliz primer mes. Tal vez no sea mucho tiempo, pero lo que siento es real y bonito."
+];
+
+const container = document.getElementById("cards");
+const modal = document.getElementById("modal");
+const modalText = document.getElementById("modalText");
+
+mensajes.forEach(() => {
+  const card = document.createElement("div");
+  card.className = "card";
+  card.innerHTML = "💌 Tócame";
+  container.appendChild(card);
+});
+
+container.querySelectorAll(".card").forEach((card, i) => {
+  card.onclick = () => openModal(mensajes[i]);
+});
+
+function openModal(text) {
+  modalText.innerHTML = text;
+  modal.classList.add("active");
+}
+
+function closeModal() {
+  modal.classList.remove("active");
+}
+
+setInterval(() => {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerHTML = "❤️";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.fontSize = (16 + Math.random() * 20) + "px";
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 6000);
+}, 400);
+
+const music = document.getElementById("music");
+let playing = false;
+
+function toggleMusic() {
+  if (!playing) music.play();
+  else music.pause();
+  playing = !playing;
+}
+</script>
+
+</body>
+</html>
